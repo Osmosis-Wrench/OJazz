@@ -2,7 +2,6 @@ Scriptname OJazz_Widget extends SKI_WidgetBase
 {Lock symbol widget to indicate when OSA controls are locked.}
 
 ; code
-
 bool Property visible
     bool Function Get()
         Return Ui.GetBool(HUD_MENU, WidgetRoot + "._visible")
@@ -14,7 +13,7 @@ Event OnWidgetReset()
 EndEvent
 
 String Function GetWidgetSource()
-    Return "OJazz/LockSymbolWidget.swf"
+    Return "ojazz/OJazzWidget.swf"
 EndFunction
 
 Function FlashVisibililty(float seconds = 2.0) ; Will set itself visible true when it starts, and set visible false when it ends.
