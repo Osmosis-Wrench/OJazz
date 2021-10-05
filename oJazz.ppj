@@ -20,6 +20,7 @@
         <Import>https://github.com/CE0/OSA-SE/tree/master/Data/Scripts/Source</Import>
         <Import>https://github.com/MrOctopus/nl_online/tree/main/skyui/source</Import>
         <Import>https://github.com/MrOctopus/nl_online/tree/main/skse64/source</Import>
+        <Import>https://github.com/MrOctopus/nl_mcm/tree/main/main/scripts/source</Import>
         <Import>https://github.com/MrOctopus/nl_online/tree/main/sse/source</Import>
     </Imports>
     <Folders>
@@ -30,8 +31,9 @@
         	<Include NoRecurse="true">*.esp</Include>
             <Include>Scripts</Include>
             <Include>Source</Include>
-            <Include>Sounds</Include>
+            <Include>Sound</Include>
             <Include>Interface</Include>
+            <Include>SKSE</Include>
         </ZipFile>
     </ZipFiles>
 </PapyrusProject>
