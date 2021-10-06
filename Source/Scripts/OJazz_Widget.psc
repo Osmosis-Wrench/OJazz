@@ -25,7 +25,7 @@ bool Function ToggleVisiblity()
 endfunction 
 
 ;public function startWidget(newSongTitle:String, newSongArtist:String, newSongLength:String, newSongLicense:String):Void
-bool Function StartOJazzWidget(string SongTitle, string SongArtist, string SongLength, string songLicense)
+bool Function StartOJazzWidget(string SongTitle, string SongArtist, string SongLength, string SongLicense)
     int handle = UiCallback.Create(HUD_MENU, WidgetRoot + ".startWidget")
     if handle == 0
         return false

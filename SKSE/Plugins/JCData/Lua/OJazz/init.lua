@@ -11,8 +11,4 @@ function ojazz.getValidRandom(collection, last)
     return array[random]
 end
 
-function ojazz.returnPoop()
-    return "poop"
-end
-
 return ojazz
