@@ -1,5 +1,5 @@
 Scriptname OJazz_MCM extends nl_mcm_module
-{MCM for OJazz/OBowChikkaBowWow}
+{MCM for OJazz}
 
 ; code
 String Blue = "#6699ff"
@@ -21,7 +21,7 @@ event OnInit()
 endEvent
 
 event OnPageInit()
-    SetModName("OBowChikkaBowWow")
+    SetModName("OJazz")
     SetLandingPage("Core Options")
     Writelog("Installing...")
     BuildDatabase()

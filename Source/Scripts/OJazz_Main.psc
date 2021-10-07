@@ -29,7 +29,6 @@ Event OnInit()
     RegisterForModEvent("ostim_end", "OnOstimEnd")
     RegisterForKey(27)
     PlayerRef = Game.GetPlayer()
-    SongTitle = "Osmosis-Wrench"
     ostim = outils.GetOStim()
     baseSound = game.getformfromfile(0x00080B, "OBowChikkaBowWow.esp") as Sound
     OJazzWidget = (Self as Quest) as OJazz_Widget
@@ -73,10 +72,10 @@ endEvent
 
 ; This just makes life easier sometimes.
 Function WriteLog(String OutputLog, bool error = false)
-    MiscUtil.PrintConsole("OBowChikkaBowWow: " + OutputLog)
-    Debug.Trace("OBowChikkaBowWow: " + OutputLog)
+    MiscUtil.PrintConsole("OJazz: " + OutputLog)
+    Debug.Trace("OJazz: " + OutputLog)
     if (error == true)
-        Debug.Notification("OBowChikkaBowWow: " + OutputLog)
+        Debug.Notification("OJazz: " + OutputLog)
     endIF
 EndFunction
 
