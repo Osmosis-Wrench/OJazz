@@ -42,17 +42,15 @@ function BuildPageContents()
     string songKey = JMap.NextKey(oJazzMusicLib)
     while songKey
         bool songEnabled = Jvalue.SolveInt(oJazzMusicLib, "." + songKey + ".Enabled") as bool
-        string songArtist = Jvalue.SolveStr(oJazzMusicLib, "." + songKey + ".Artist")
-        string songLength = Jvalue.SolveStr(oJazzMusicLib, "." + songKey + ".Length")
         AddToggleOptionST("song_toggle_state___" + songKey, songKey, songEnabled)
-        AddParagraph("    "+songArtist+" - "+ songLength, FONT_INFO())
         songKey = Jmap.nextKey(oJazzMusicLib, songKey)
     endwhile
 endFunction
 
 function BuildDatabase()
+    JDB.SetObj("OJazz", 0)
     Writelog("Building Database...")
-    int songFileList = JValue.readFromDirectory("Data/Interface/widgets/ojazz", ".json")
+    int songFileList = JValue.readFromDirectory("Data/Interface/exported/widgets/ojazz/", ".json")
     JValue.Retain(songFileList)
     int songData
     string songFileKey = Jmap.NextKey(songFileList)
@@ -96,7 +94,7 @@ state song_toggle_state
     endevent
 
     event OnHighlightST(string state_id)
-        SetInfoText("Song License: " + Jvalue.SolveStr(oJazzMusicLib, "."+state_id+".License"))
+        SetInfoText("Artist: "+ Jvalue.SolveStr(oJazzMusicLib, "." + state_id + ".Artist") + "\nLicense: " + Jvalue.SolveStr(oJazzMusicLib, "."+state_id+".License") +"\nLength: " + Jvalue.SolveStr(oJazzMusicLib, "." + state_id + ".Length"))
     endevent
 endstate
 
