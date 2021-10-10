@@ -5,7 +5,15 @@ Scriptname OJazz_MCM extends nl_mcm_module
 String Blue = "#6699ff"
 String Pink = "#ff3389"
 
-bool enabled ;todo make this a gv
+bool enabled
+
+int property nextsong auto
+int property playsong auto
+int property stopsong auto
+int property hidewidget auto
+int property showwidget auto
+
+ojazz_main property main auto
 
 int property oJazzMusicLib
     int function get()
@@ -34,7 +42,14 @@ event OnPageDraw()
     AddHeaderOption(FONT_CUSTOM("Main Options:", Blue))
     AddToggleOptionST("mod_enabled_state", "Mod Enabled", enabled)
     AddTextOptionST("rebuild_database_state", "Rebuild Database", "Click")
+    AddHeaderOption(FONT_CUSTOM("Keybinds:", pink))
+    AddKeyMapOptionST("keybind_nextsong_state", "Next Song", nextsong)
+    AddKeyMapOptionST("keybind_playsong_state", "Next Song", playsong)
+    AddKeyMapOptionST("keybind_stopsong_state", "Next Song", stopsong)
+    AddKeyMapOptionST("keybind_hidewidget_state", "Hide Widget", hidewidget)
+    AddKeyMapOptionST("keybind_showwidget_state", "Show Widget", showwidget)
     SetCursorPosition(1)
+    AddHeaderOption(FONT_CUSTOM("Songs:", Blue))
     BuildPageContents()
 endEvent
 
@@ -95,6 +110,71 @@ state song_toggle_state
 
     event OnHighlightST(string state_id)
         SetInfoText("Artist: "+ Jvalue.SolveStr(oJazzMusicLib, "." + state_id + ".Artist") + "\nLicense: " + Jvalue.SolveStr(oJazzMusicLib, "."+state_id+".License") +"\nLength: " + Jvalue.SolveStr(oJazzMusicLib, "." + state_id + ".Length"))
+    endevent
+endstate
+
+state keybind_nextsong_state
+    event OnKeymapChangeST(string state_id, int keycode)
+        int old = nextsong
+        setkeymapoptionvaluest(keycode)
+        main.handleKeymap(keycode, old)
+        nextsong = keycode
+    endevent
+
+    event onHighlightST(string state_id)
+        SetInfoText("Button to skip to the next track. \nNote: This will only skip to a different random track, there is no \"track order\"")
+    endevent
+endstate
+
+state keybind_playsong_state
+    event OnKeymapChangeST(string state_id, int keycode)
+        int old = playsong
+        setkeymapoptionvaluest(keycode)
+        main.handleKeymap(keycode, old)
+        playsong = keycode
+    endevent
+
+    event onHighlightST(string state_id)
+        SetInfoText("Button to start playing a song, even outside of an ostim scene.")
+    endevent
+endstate
+
+state keybind_stopsong_state
+    event OnKeymapChangeST(string state_id, int keycode)
+        int old = stopsong
+        setkeymapoptionvaluest(keycode)
+        main.handleKeymap(keycode, old)
+        stopsong = keycode
+    endevent
+
+    event onHighlightST(string state_id)
+        SetInfoText("Button to stop the current song.")
+    endevent
+endstate
+
+state keybind_hidewidget_state
+    event OnKeymapChangeST(string state_id, int keycode)
+        int old = hidewidget
+        setkeymapoptionvaluest(keycode)
+        main.handleKeymap(keycode, old)
+        hidewidget = keycode
+    endevent
+
+    event onHighlightST(string state_id)
+        SetInfoText("Button to hide the widget when it's shown.")
+    endevent
+endstate
+
+state keybind_showwidget_state
+    event OnKeymapChangeST(string state_id, int keycode)
+        int old = showwidget
+        setkeymapoptionvaluest(keycode)
+        main.handleKeymap(keycode, old)
+        showwidget = keycode
+    endevent
+
+    event onHighlightST(string state_id)
+        SetInfoText("Button to show the widget when it's hidden.")
     endevent
 endstate
 
