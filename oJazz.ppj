@@ -8,7 +8,7 @@
     Zip="true">
     <Variables>
         <Variable Name="ModName" Value="OJazz"/>
-        <Variable Name="Version" Value="0.5"/>
+        <Variable Name="Version" Value="0.9"/>
         <Variable Name="MyProject" Value="."/>
         <Variable Name="Dist" Value="..\dist"/>
     </Variables>

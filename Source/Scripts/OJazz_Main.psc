@@ -30,7 +30,7 @@ Event OnInit()
     RegisterForKey(27)
     PlayerRef = Game.GetPlayer()
     ostim = outils.GetOStim()
-    baseSound = game.getformfromfile(0x00080B, "OBowChikkaBowWow.esp") as Sound
+    baseSound = game.getformfromfile(0x00080B, "ojazz.esp") as Sound
     OJazzWidget = (Self as Quest) as OJazz_Widget
 EndEvent
 
