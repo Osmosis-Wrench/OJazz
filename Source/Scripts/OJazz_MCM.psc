@@ -29,11 +29,16 @@ event OnInit()
 endEvent
 
 event OnPageInit()
-    SetModName("OJazz")
+    SetModName("OJazz  ")
     SetLandingPage("Core Options")
     Writelog("Installing...")
     BuildDatabase()
     enabled = true
+    nextsong = 0
+    playsong = 0
+    stopsong = 0
+    hidewidget = 0
+    showwidget = 0
     Writelog("Installed!")
 endEvent
 
@@ -44,8 +49,7 @@ event OnPageDraw()
     AddTextOptionST("rebuild_database_state", "Rebuild Database", "Click")
     AddHeaderOption(FONT_CUSTOM("Keybinds:", pink))
     AddKeyMapOptionST("keybind_nextsong_state", "Next Song", nextsong)
-    AddKeyMapOptionST("keybind_playsong_state", "Next Song", playsong)
-    AddKeyMapOptionST("keybind_stopsong_state", "Next Song", stopsong)
+    AddKeyMapOptionST("keybind_stopsong_state", "Stop Song", stopsong)
     AddKeyMapOptionST("keybind_hidewidget_state", "Hide Widget", hidewidget)
     AddKeyMapOptionST("keybind_showwidget_state", "Show Widget", showwidget)
     SetCursorPosition(1)
@@ -126,18 +130,6 @@ state keybind_nextsong_state
     endevent
 endstate
 
-state keybind_playsong_state
-    event OnKeymapChangeST(string state_id, int keycode)
-        int old = playsong
-        setkeymapoptionvaluest(keycode)
-        main.handleKeymap(keycode, old)
-        playsong = keycode
-    endevent
-
-    event onHighlightST(string state_id)
-        SetInfoText("Button to start playing a song, even outside of an ostim scene.")
-    endevent
-endstate
 
 state keybind_stopsong_state
     event OnKeymapChangeST(string state_id, int keycode)
