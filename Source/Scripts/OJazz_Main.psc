@@ -71,13 +71,17 @@ endFunction
 
 Event OnOstimStart(string eventName, string strArg, float numArg, Form sender)
     MainController()
+    Utility.Wait(7)
+    OJazzWidget.FlashVisibililty(5)
 endEvent
 
 Event OnOstimEnd(string eventName, string strArg, float numArg, Form sender)
     ;Double check the song was stopped.
     Sound.StopInstance(SongIndex)
     Writelog("Stopping Music")
-    OJazzWidget.FlashVisibililty()
+    if OJazzWidget.visible
+        OJazzWidget.FlashVisibililty()
+    endif
 endEvent
 
 
