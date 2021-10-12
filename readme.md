@@ -27,7 +27,7 @@ Adds music to Ostim scenes, with the ability to for users to create modular musi
 
 1. Convert your songs to ``.wav`` and place them in ``Data\Sound\Fx\OJazz``
 2. Create a new esp in the ck.
-3. In that esp, create a **Sound Descriptor**that points to your wav file.
+3. In that esp, create a **Sound Descriptor** that points to your wav file.
 4. Also create a **Sound Marker** that points to the sound descriptor.
 5. Create a new ``.json`` file in ``Data\Interface\exported\widgets\ojazz\``
 6. It should contain the format explained in the **Understanding Database Format** section below.
