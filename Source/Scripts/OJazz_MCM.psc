@@ -12,6 +12,8 @@ int property playsong auto
 int property stopsong auto
 int property hidewidget auto
 int property showwidget auto
+float property volume auto
+bool property NPC_Scenes auto
 
 ojazz_main property main auto
 
@@ -39,6 +41,7 @@ event OnPageInit()
     stopsong = 0
     hidewidget = 0
     showwidget = 0
+    volume = 1.0
     Writelog("Installed!")
 endEvent
 
@@ -47,6 +50,8 @@ event OnPageDraw()
     AddHeaderOption(FONT_CUSTOM("Main Options:", Blue))
     AddToggleOptionST("mod_enabled_state", "Mod Enabled", enabled)
     AddTextOptionST("rebuild_database_state", "Rebuild Database", "Click")
+    AddSliderOptionST("volume_slider_state", "Music Volume", volume)
+    AddToggleOPtionST("npc_scenes_enabled", "Play for NPC/NPC Scenes", NPC_Scenes)
     AddHeaderOption(FONT_CUSTOM("Keybinds:", pink))
     AddKeyMapOptionST("keybind_nextsong_state", "Next Song", nextsong)
     AddKeyMapOptionST("keybind_stopsong_state", "Stop Song", stopsong)
@@ -167,6 +172,44 @@ state keybind_showwidget_state
 
     event onHighlightST(string state_id)
         SetInfoText("Button to show the widget when it's hidden.")
+    endevent
+endstate
+
+state volume_slider_state
+    event OnSelectST(string state_id)
+        SetSliderDialog(volume, 0.0, 1.0, 0.1, 1.0)
+    endevent
+
+    event OnHighlightST(string state_id)
+        SetInfoText("Set the volume the music will play at in scenes.")
+    endevent
+
+    event OnSliderAcceptST(string state_id, float f)
+        volume = f
+        SetSliderOptionValueST(f)
+        main.volumeChange()
+    endevent
+endstate
+
+state npc_scenes_enabled
+    event OnSelectST(string state_id)
+        NPC_Scenes = !NPC_Scenes
+        SetToggleOptionValueST(NPC_Scenes, false, "npc_scenes_enabled")
+    endevent
+
+    event OnHighlightST(string state_id)
+        SetInfoText("Set whether music will play during NPC only scenes.")
+    endevent
+endstate
+
+state mod_enabled_state
+    event OnSelectST(string state_id)
+        enabled = !enabled
+        SetToggleOptionValueST(enabled, false, "mod_enabled_state")
+    endevent
+
+    event OnHighlightST(string state_id)
+        SetInfoText("Set whether the mod is active or not.")
     endevent
 endstate
 

@@ -24,7 +24,6 @@ OJazz_Widget OJazzWidget
 Event OnInit()
     RegisterForModEvent("ostim_Start", "OnOstimStart")
     RegisterForModEvent("ostim_end", "OnOstimEnd")
-    RegisterForKey(27)
     PlayerRef = Game.GetPlayer()
     ostim = outils.GetOStim()
     OJazzWidget = (Self as Quest) as OJazz_Widget
@@ -57,6 +56,7 @@ Function MainController()
     ;todo send song data to widget.
     int randomvalid = JValue.evalLuaObj(oJazzMusicLib, "return ojazz.getValidRandom(jobject, '"+SongTitle+"')")
     SongIndex = (JMap.GetForm(randomvalid, "Form") as sound).play(PlayerRef)
+    volumeChange()
     SongTitle = JMap.GetStr(randomvalid, "Title")
     String SongArtist = JMap.GetStr(randomvalid, "Artist")
     String SongLength = JMap.GetStr(randomvalid, "Length")
@@ -84,10 +84,13 @@ Event OnOstimEnd(string eventName, string strArg, float numArg, Form sender)
     endif
 endEvent
 
-
 function handleKeymap(int newk, int oldk)
     unregisterforkey(oldk)
     registerforkey(newk)
+endfunction
+
+function volumeChange()
+    Sound.SetInstanceVolume(SongIndex, ojazz.volume)
 endfunction
 
 ; This just makes life easier sometimes.
