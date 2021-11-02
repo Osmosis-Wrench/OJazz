@@ -70,17 +70,21 @@ Function MainController()
 endFunction
 
 Event OnOstimStart(string eventName, string strArg, float numArg, Form sender)
-    MainController()
-    Utility.Wait(7)
-    OJazzWidget.FlashVisibililty(5)
+    if ostim.IsPlayerInvolved()
+        MainController()
+        Utility.Wait(7)
+        OJazzWidget.FlashVisibililty(5)
+    endif
 endEvent
 
 Event OnOstimEnd(string eventName, string strArg, float numArg, Form sender)
-    ;Double check the song was stopped.
-    Sound.StopInstance(SongIndex)
-    Writelog("Stopping Music")
-    if OJazzWidget.visible
-        OJazzWidget.FlashVisibililty()
+    if ostim.IsActorActive(PlayerRef) == false
+        ;Double check the song was stopped.
+        Sound.StopInstance(SongIndex)
+        Writelog("Stopping Music")
+        if OJazzWidget.visible
+            OJazzWidget.FlashVisibililty()
+        endif
     endif
 endEvent
 
