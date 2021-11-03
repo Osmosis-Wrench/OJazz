@@ -53,7 +53,7 @@ Event OnKeyDown(int keycode)
 endEvent
 
 Function MainController()
-    ;todo send song data to widget.
+    Sound.StopInstance(SongIndex) ; put this here so we never start two songs at once, because if we do we lose the old song and can't ever stop it.
     int randomvalid = JValue.evalLuaObj(oJazzMusicLib, "return ojazz.getValidRandom(jobject, '"+SongTitle+"')")
     SongIndex = (JMap.GetForm(randomvalid, "Form") as sound).play(PlayerRef)
     volumeChange()
@@ -61,15 +61,17 @@ Function MainController()
     String SongArtist = JMap.GetStr(randomvalid, "Artist")
     String SongLength = JMap.GetStr(randomvalid, "Length")
     String SongLicense = JMap.GetStr(randomvalid, "License")
-    Writelog("Playing: "+SongTitle+" by "+SongArtist+" | "+ SongLength +" | License: "+SongLicense)
     if OJazzWidget.StartOJazzWidget(SongTitle, SongArtist, SongLength, SongLicense)
-        ;Writelog("Widget Started")
+        Writelog("Playing: "+SongTitle+" by "+SongArtist+" | "+ SongLength +" | License: "+SongLicense)
     Else
         Writelog("Widget Failed")
     endif
 endFunction
 
 Event OnOstimStart(string eventName, string strArg, float numArg, Form sender)
+    if (!ojazz.NPC_Scenes_Enabled && !ostim.isPlayerInvolved())
+        return
+    endif
     MainController()
     Utility.Wait(7)
     OJazzWidget.FlashVisibililty(5)
@@ -77,6 +79,9 @@ endEvent
 
 Event OnOstimEnd(string eventName, string strArg, float numArg, Form sender)
     ;Double check the song was stopped.
+    if (!ojazz.NPC_Scenes_Enabled && !ostim.isPlayerInvolved())
+        return
+    endif
     Sound.StopInstance(SongIndex)
     Writelog("Stopping Music")
     if OJazzWidget.visible

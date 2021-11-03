@@ -13,7 +13,7 @@ int property stopsong auto
 int property hidewidget auto
 int property showwidget auto
 float property volume auto
-bool property NPC_Scenes auto
+bool property NPC_Scenes_Enabled auto
 
 ojazz_main property main auto
 
@@ -36,6 +36,7 @@ event OnPageInit()
     Writelog("Installing...")
     BuildDatabase()
     enabled = true
+    NPC_Scenes_Enabled = false
     nextsong = 0
     playsong = 0
     stopsong = 0
@@ -51,7 +52,7 @@ event OnPageDraw()
     AddToggleOptionST("mod_enabled_state", "Mod Enabled", enabled)
     AddTextOptionST("rebuild_database_state", "Rebuild Database", "Click")
     AddSliderOptionST("volume_slider_state", "Music Volume", (volume * 100))
-    AddToggleOPtionST("npc_scenes_enabled", "Play for NPC/NPC Scenes", NPC_Scenes)
+    AddToggleOPtionST("NPC_Scenes_Enabled_State", "Play for NPC/NPC Scenes", NPC_Scenes_Enabled)
     AddHeaderOption(FONT_CUSTOM("Keybinds:", pink))
     AddKeyMapOptionST("keybind_nextsong_state", "Next Song", nextsong)
     AddKeyMapOptionST("keybind_stopsong_state", "Stop Song", stopsong)
@@ -191,10 +192,10 @@ state volume_slider_state
     endevent
 endstate
 
-state npc_scenes_enabled
+state NPC_Scenes_Enabled_State
     event OnSelectST(string state_id)
-        NPC_Scenes = !NPC_Scenes
-        SetToggleOptionValueST(NPC_Scenes, false, "npc_scenes_enabled")
+        NPC_Scenes_Enabled = !NPC_Scenes_Enabled
+        SetToggleOptionValueST(NPC_Scenes_Enabled, false, "NPC_Scenes_Enabled_State")
     endevent
 
     event OnHighlightST(string state_id)
