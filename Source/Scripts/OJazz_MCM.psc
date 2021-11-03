@@ -50,7 +50,7 @@ event OnPageDraw()
     AddHeaderOption(FONT_CUSTOM("Main Options:", Blue))
     AddToggleOptionST("mod_enabled_state", "Mod Enabled", enabled)
     AddTextOptionST("rebuild_database_state", "Rebuild Database", "Click")
-    AddSliderOptionST("volume_slider_state", "Music Volume", volume)
+    AddSliderOptionST("volume_slider_state", "Music Volume", (volume * 100))
     AddToggleOPtionST("npc_scenes_enabled", "Play for NPC/NPC Scenes", NPC_Scenes)
     AddHeaderOption(FONT_CUSTOM("Keybinds:", pink))
     AddKeyMapOptionST("keybind_nextsong_state", "Next Song", nextsong)
@@ -177,7 +177,7 @@ endstate
 
 state volume_slider_state
     event OnSelectST(string state_id)
-        SetSliderDialog(volume, 0.0, 1.0, 0.1, 1.0)
+        SetSliderDialog((volume*100.0), 0.0, 100.0, 1.0)
     endevent
 
     event OnHighlightST(string state_id)
@@ -185,8 +185,8 @@ state volume_slider_state
     endevent
 
     event OnSliderAcceptST(string state_id, float f)
-        volume = f
-        SetSliderOptionValueST(f)
+        volume = (f / 100)
+        SetSliderOptionValueST(volume * 100.0)
         main.volumeChange()
     endevent
 endstate
