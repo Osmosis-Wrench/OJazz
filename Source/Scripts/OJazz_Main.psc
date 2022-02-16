@@ -98,7 +98,6 @@ function handleKeymap(int newk, int oldk)
 endfunction
 
 function volumeChange()
-    writelog(ojazz.volume as float / 100.0)
     Sound.SetInstanceVolume(SongIndex, ojazz.volume as float / 100.0)
 endfunction
 

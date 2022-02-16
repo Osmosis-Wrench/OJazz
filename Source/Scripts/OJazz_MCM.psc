@@ -42,7 +42,6 @@ event OnPageInit()
     stopsong = 0
     hidewidget = 0
     showwidget = 0
-    volume = 100
     Writelog("Installed!")
 endEvent
 
