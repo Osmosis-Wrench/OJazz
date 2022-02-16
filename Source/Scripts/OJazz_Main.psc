@@ -14,6 +14,7 @@ endproperty
 OSexIntegrationMain property ostim auto
 ojazz_mcm property ojazz auto
 Actor Property PlayerRef auto
+SoundCategory Property MUS auto
 
 int SongIndex
 String SongTitle
@@ -53,6 +54,7 @@ Event OnKeyDown(int keycode)
 endEvent
 
 Function MainController()
+    MUS.Pause()
     Sound.StopInstance(SongIndex) ; put this here so we never start two songs at once, because if we do we lose the old song and can't ever stop it.
     int randomvalid = JValue.evalLuaObj(oJazzMusicLib, "return ojazz.getValidRandom(jobject, '"+SongTitle+"')")
     SongIndex = (JMap.GetForm(randomvalid, "Form") as sound).play(PlayerRef)
@@ -79,6 +81,7 @@ endEvent
 
 Event OnOstimEnd(string eventName, string strArg, float numArg, Form sender)
     ;Double check the song was stopped.
+    MUS.UnPause()
     if (!ojazz.NPC_Scenes_Enabled && !ostim.isPlayerInvolved())
         return
     endif
@@ -95,7 +98,8 @@ function handleKeymap(int newk, int oldk)
 endfunction
 
 function volumeChange()
-    Sound.SetInstanceVolume(SongIndex, ojazz.volume)
+    writelog(ojazz.volume as float / 100.0)
+    Sound.SetInstanceVolume(SongIndex, ojazz.volume as float / 100.0)
 endfunction
 
 ; This just makes life easier sometimes.

@@ -12,7 +12,7 @@ int property playsong auto
 int property stopsong auto
 int property hidewidget auto
 int property showwidget auto
-float property volume auto
+int property volume auto
 bool property NPC_Scenes_Enabled auto
 
 ojazz_main property main auto
@@ -42,7 +42,7 @@ event OnPageInit()
     stopsong = 0
     hidewidget = 0
     showwidget = 0
-    volume = 1.0
+    volume = 100
     Writelog("Installed!")
 endEvent
 
@@ -51,7 +51,7 @@ event OnPageDraw()
     AddHeaderOption(FONT_CUSTOM("Main Options:", Blue))
     AddToggleOptionST("mod_enabled_state", "Mod Enabled", enabled)
     AddTextOptionST("rebuild_database_state", "Rebuild Database", "Click")
-    AddSliderOptionST("volume_slider_state", "Music Volume", (volume * 100))
+    AddSliderOptionST("volume_slider_state", "Music Volume", volume)
     AddToggleOPtionST("NPC_Scenes_Enabled_State", "Play for NPC/NPC Scenes", NPC_Scenes_Enabled)
     AddHeaderOption(FONT_CUSTOM("Keybinds:", pink))
     AddKeyMapOptionST("keybind_nextsong_state", "Next Song", nextsong)
@@ -177,17 +177,17 @@ state keybind_showwidget_state
 endstate
 
 state volume_slider_state
-    event OnSelectST(string state_id)
-        SetSliderDialog((volume*100.0), 0.0, 100.0, 1.0)
-    endevent
+    event OnSliderOpenST(string state_id)
+        SetSliderDialog(volume, 0, 100, 1, 100)
+    endEvent
 
     event OnHighlightST(string state_id)
         SetInfoText("Set the volume the music will play at in scenes.")
     endevent
 
     event OnSliderAcceptST(string state_id, float f)
-        volume = (f / 100)
-        SetSliderOptionValueST(volume * 100.0)
+        volume = f as Int
+        SetSliderOptionValueST(volume)
         main.volumeChange()
     endevent
 endstate
@@ -216,9 +216,9 @@ endstate
 
 ; This just makes life easier sometimes.
 Function WriteLog(String OutputLog, bool error = false)
-    MiscUtil.PrintConsole("OBowChikkaBowWow: " + OutputLog)
-    Debug.Trace("OBowChikkaBowWow: " + OutputLog)
+    MiscUtil.PrintConsole("OJazz: " + OutputLog)
+    Debug.Trace("OJazz: " + OutputLog)
     if (error == true)
-        Debug.Notification("OBowChikkaBowWow: " + OutputLog)
+        Debug.Notification("OJazz: " + OutputLog)
     endIF
 EndFunction
